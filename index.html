@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0d12">
+  <title>ASCII Art Studio — перетворення тексту й зображень</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="ASCII Art Studio — на початок">
+        <span class="brand-mark" aria-hidden="true">A<span>S</span></span>
+        <span class="brand-copy"><strong>ASCII<span>LAB</span></strong><small>TEXT & IMAGE CONVERTER</small></span>
+      </a>
+      <div class="topbar-right">
+        <span class="live-dot"></span><span class="server-label">LOCAL STUDIO</span>
+        <span class="version-tag">v1.0</span>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="eyebrow"><span class="eyebrow-line"></span> CREATIVE TOOLKIT / 001</div>
+        <h1>Перетвори <span>пікселі</span><br>на символи.</h1>
+        <p class="hero-description">Створюй текстові постери та перетворюй зображення на ASCII-art. Керуй щільністю символів, контрастом і світінням у реальному часі.</p>
+        <div class="hero-meta"><span><i class="meta-icon">⌘</i> ПРАЦЮЄ ЛОКАЛЬНО</span><span><i class="meta-icon">▦</i> БЕЗ СТОРОННІХ БІБЛІОТЕК</span></div>
+      </section>
+
+      <section class="workspace" aria-label="Редактор ASCII-art">
+        <div class="workspace-topline">
+          <div class="section-label"><span class="section-number">01</span><span>МАЙСТЕРНЯ</span></div>
+          <div class="workspace-hint">НАЛАШТУЙ · ПЕРЕГЛЯНЬ · ЕКСПОРТУЙ</div>
+        </div>
+
+        <div class="mode-tabs" role="tablist" aria-label="Режим конвертації">
+          <button class="mode-tab active" id="textTab" role="tab" aria-selected="true" aria-controls="textPanel" data-mode="text"><span class="tab-icon">T<span>+</span></span><span><strong>Текст → ASCII</strong><small>Літерний постер</small></span></button>
+          <button class="mode-tab" id="imageTab" role="tab" aria-selected="false" aria-controls="imagePanel" data-mode="image"><span class="tab-icon image-tab-icon">▧</span><span><strong>Зображення → ASCII</strong><small>Фото або картинка</small></span></button>
+        </div>
+
+        <div class="editor-grid">
+          <aside class="control-panel">
+            <div class="panel-heading"><span class="panel-kicker">INPUT SOURCE</span><span class="panel-index">A / 01</span></div>
+
+            <section id="textPanel" class="source-panel" role="tabpanel" aria-labelledby="textTab">
+              <label class="control-label" for="sourceText">Твій напис <span class="label-extra">ВВЕДИ ТЕКСТ</span></label>
+              <textarea id="sourceText" class="text-input" maxlength="120" spellcheck="false" placeholder="Введи свій текст...">ASCII
+STUDIO</textarea>
+              <div class="field-footer"><span>Підтримує кілька рядків</span><span id="textCount">11 / 120</span></div>
+              <div class="mini-note"><span class="note-symbol">↳</span> Текст буде намальовано на полотні й перетворено на символи.</div>
+            </section>
+
+            <section id="imagePanel" class="source-panel hidden" role="tabpanel" aria-labelledby="imageTab" aria-hidden="true">
+              <label class="control-label">Вихідне зображення <span class="label-extra">PNG · JPG · WEBP</span></label>
+              <label class="dropzone" id="dropzone" for="imageFile" tabindex="0">
+                <input type="file" id="imageFile" accept="image/*" hidden>
+                <span class="upload-icon">↑</span>
+                <strong id="dropzoneTitle">Перетягни зображення сюди</strong>
+                <span id="dropzoneSubtitle">або натисни, щоб вибрати файл</span>
+                <span class="browse-button">ОБРАТИ ФАЙЛ</span>
+              </label>
+              <div class="file-status" id="fileStatus"><span class="file-status-dot"></span><span>Файл ще не вибрано</span></div>
+              <div class="mini-note"><span class="note-symbol">↳</span> Зображення обробляється в браузері й не надсилається в інтернет.</div>
+            </section>
+
+            <div class="control-divider"></div>
+            <div class="panel-heading settings-heading"><span class="panel-kicker">RENDER SETTINGS</span><span class="panel-index">B / 02</span></div>
+
+            <div class="setting-block">
+              <div class="setting-top"><label for="widthRange">Ширина малюнка</label><output id="widthValue">100 символів</output></div>
+              <input id="widthRange" class="range" type="range" min="40" max="180" step="5" value="100">
+              <div class="range-scale"><span>40 · ДЕТАЛЬНО</span><span>180 · ШИРОКО</span></div>
+            </div>
+
+            <div class="setting-block">
+              <div class="setting-top"><label for="brightnessRange">Яскравість зображення</label><output id="brightnessValue">0</output></div>
+              <input id="brightnessRange" class="range" type="range" min="-100" max="100" value="0">
+              <div class="range-scale"><span>ТЕМНІШЕ</span><span>СВІТЛІШЕ</span></div>
+            </div>
+
+            <div class="setting-block">
+              <div class="setting-top"><label for="contrastRange">Контраст</label><output id="contrastValue">100%</output></div>
+              <input id="contrastRange" class="range" type="range" min="0" max="200" value="100">
+              <div class="range-scale"><span>М'ЯКИЙ</span><span>РІЗКИЙ</span></div>
+            </div>
+
+            <div class="setting-block charset-setting">
+              <div class="setting-top"><label for="charsetSelect">Набір символів</label><span class="setting-tag">DARK → LIGHT</span></div>
+              <select id="charsetSelect" class="select-input">
+                <option value=" .:-=+*#%@">Класичний · .:-=+*#%@</option>
+                <option value=" ░▒▓█">Блоки · ░▒▓█</option>
+                <option value=" .oO@">Мінімальний · .oO@</option>
+                <option value=" 01">Бінарний · 01</option>
+                <option value=" .,:;irsXA253hMHGS#9B&@">Детальний · 26 рівнів</option>
+                <option value="custom">Власні символи…</option>
+              </select>
+              <input id="customCharset" class="text-input custom-charset hidden" type="text" maxlength="40" placeholder="Напр.:  .:-=+*#%@" aria-label="Власний набір символів">
+              <p class="setting-help">Зліва — темні ділянки, справа — світлі.</p>
+            </div>
+
+            <div class="toggle-row">
+              <div><strong>Інвертувати тон</strong><small>Поміняти світле й темне місцями</small></div>
+              <label class="switch"><input id="invertToggle" type="checkbox"><span class="switch-track"></span></label>
+            </div>
+
+            <div class="control-divider"></div>
+            <div class="panel-heading settings-heading"><span class="panel-kicker">LIGHT EFFECT</span><span class="panel-index">C / 03</span></div>
+
+            <div class="toggle-row glow-toggle-row">
+              <div><strong>Світіння символів</strong><small>Ефект LED-лампочок</small></div>
+              <label class="switch"><input id="glowToggle" type="checkbox" checked><span class="switch-track"></span></label>
+            </div>
+            <div id="glowControls" class="glow-controls">
+              <div class="setting-block">
+                <div class="setting-top"><label for="glowRange">Інтенсивність світіння</label><output id="glowValue">65%</output></div>
+                <input id="glowRange" class="range" type="range" min="0" max="100" value="65">
+              </div>
+              <div class="setting-block color-setting">
+                <label class="control-label" for="colorSelect">Колір лампочок</label>
+                <div class="color-select-wrap"><span id="colorSwatch" class="color-swatch"></span><select id="colorSelect" class="select-input">
+                  <option value="mint">Неонова м'ята</option>
+                  <option value="green">Ретро-зелений</option>
+                  <option value="blue">Електричний синій</option>
+                  <option value="pink">Рожевий неон</option>
+                  <option value="amber">Теплий бурштин</option>
+                  <option value="white">Холодний білий</option>
+                </select></div>
+              </div>
+            </div>
+
+            <button id="resetButton" class="reset-button" type="button"><span>↺</span> СКИНУТИ НАЛАШТУВАННЯ</button>
+          </aside>
+
+          <section class="preview-panel" aria-label="Попередній перегляд ASCII-art">
+            <div class="preview-header">
+              <div><div class="panel-kicker">LIVE OUTPUT</div><h2>Полотно результату</h2></div>
+              <div class="preview-status"><span class="live-dot"></span> LIVE</div>
+            </div>
+            <div class="canvas-frame" id="canvasFrame">
+              <div class="canvas-grid" aria-hidden="true"></div>
+              <div class="canvas-toolbar"><span><i></i><i></i><i></i> ASCII CANVAS</span><span id="outputDimensions">100 × 25</span></div>
+              <div class="output-viewport" id="outputViewport">
+                <pre id="asciiOutput" class="ascii-output" aria-label="Згенерований ASCII-art"></pre>
+              </div>
+              <div id="emptyState" class="empty-state hidden"><span class="empty-glyph">░▒▓█</span><strong>Полотно готове</strong><span>Обери зображення або введи текст,<br>щоб створити власний ASCII-art.</span></div>
+            </div>
+            <div class="output-info"><span><span class="info-dot"></span><span id="renderStatus">Візуалізацію оновлено</span></span><span id="charCount">0 символів</span></div>
+
+            <div class="export-area">
+              <div class="export-heading"><div><span class="panel-kicker">TAKE IT WITH YOU</span><h3>Експорт результату</h3></div><span class="export-symbol">↘</span></div>
+              <div class="export-buttons">
+                <button id="copyButton" class="action-button secondary" type="button"><span class="button-icon">▣</span> КОПІЮВАТИ ТЕКСТ</button>
+                <button id="downloadTextButton" class="action-button secondary" type="button"><span class="button-icon">↓</span> ЗАВАНТАЖИТИ .TXT</button>
+                <button id="downloadPngButton" class="action-button primary" type="button"><span class="button-icon">▧</span> ЕКСПОРТ PNG <span class="button-arrow">↗</span></button>
+              </div>
+              <p class="export-note">TXT зберігає символи, а PNG — кольори та ефект світіння.</p>
+            </div>
+
+            <div class="shortcuts"><span class="shortcut-icon">⌁</span><p><strong>Підказка</strong> Збільшуй ширину для більшої деталізації. Набір символів впливає на текстуру, а світіння найкраще виглядає на темному тлі.</p></div>
+          </section>
+        </div>
+      </section>
+
+      <footer class="footer"><span>ASCII<span class="footer-accent">LAB</span> © 2026</span><span>ЗРОБЛЕНО ДЛЯ ТВОЄЇ УЯВИ <span class="footer-star">✳</span></span></footer>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
